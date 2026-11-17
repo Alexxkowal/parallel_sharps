@@ -1,0 +1,37 @@
+name: run-parallel-tasks
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build
+        run: |
+          dotnet new sln -n ParallelSharps
+          dotnet sln ParallelSharps.sln add src/Task1/Task1.csproj
+          dotnet sln ParallelSharps.sln add src/Task2/Task2.csproj
+          dotnet sln ParallelSharps.sln add src/Task3/Task3.csproj
+          dotnet build ParallelSharps.sln -c Release
+
+      - name: Run Task I (for vs Parallel.For)
+        run: dotnet run --project src/Task1/Task1.csproj -c Release --no-build
+
+      - name: Run Task II (foreach vs Parallel.ForEach)
+        run: dotnet run --project src/Task2/Task2.csproj -c Release --no-build
+
+      - name: Run Task III (List / Stack / Queue)
+        run: dotnet run --project src/Task3/Task3.csproj -c Release --no-build
