@@ -2,5 +2,5 @@ bin/
 obj/
 *.user
 .vs/
-# The solution is generated inside CI; it does not need to be committed.
 *.sln
+*.slnx
