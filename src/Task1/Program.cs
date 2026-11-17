@@ -40,7 +40,7 @@ Console.WriteLine();
 
 // Warm-up (JIT for F and for the parallel infrastructure).
 _ = F(1.0);
-Parallel.For(0, 4, _ => { _ = F(1.0); });
+Parallel.For(0, 4, i => F(1.0));
 
 var sw = new Stopwatch();
 

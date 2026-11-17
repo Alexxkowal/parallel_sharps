@@ -40,13 +40,13 @@ var queue = new Queue<double>(N + 1);
 for (int n = 0; n <= N; n++)
     queue.Enqueue(100.0 * Math.Cos(n));
 
-Console.WriteLine($"Task III: S = sum_{n=0..N} f(x[n]) over List / Stack / Queue, N = {N}");
+Console.WriteLine($"Task III: S = sum(n=0..N) f(x[n]) over List / Stack / Queue, N = {N}");
 Console.WriteLine($"Logical processors available: {Environment.ProcessorCount}");
 Console.WriteLine();
 
 // Warm-up.
 _ = F(1.0);
-Parallel.ForEach(list.Take(4), _ => { _ = F(1.0); });
+Parallel.ForEach(list.Take(4), v => F(1.0));
 
 foreach (var (name, container) in new (string Name, IEnumerable<double> Values)[]
 {

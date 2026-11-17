@@ -31,13 +31,13 @@ double[] x = new double[N + 1];
 for (int n = 0; n <= N; n++)
     x[n] = 100.0 * Math.Cos(n);
 
-Console.WriteLine($"Task II: S = sum_{n=0..N} f(x[n]), where x[n] = 100*cos(n), N = {N}");
+Console.WriteLine($"Task II: S = sum(n=0..N) f(x[n]), where x[n] = 100*cos(n), N = {N}");
 Console.WriteLine($"Logical processors available: {Environment.ProcessorCount}");
 Console.WriteLine();
 
 // Warm-up.
 _ = F(1.0);
-Parallel.ForEach(new[] { 1.0, 2.0, 3.0, 4.0 }, _ => { _ = F(1.0); });
+Parallel.ForEach(new[] { 1.0, 2.0, 3.0, 4.0 }, v => F(1.0));
 
 var sw = new Stopwatch();
 
